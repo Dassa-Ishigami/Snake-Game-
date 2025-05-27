@@ -1,0 +1,19 @@
+#cenário {
+    display: flex;
+    justify-content: center;
+    flex-direction:column;
+    align-items: center;
+    background-size: cover;
+    background-color: rgb(12, 33, 19);
+
+}
+
+h1 {
+    font-size: 95px;
+    color: #88ad8e;
+}
+
+
+
+
+
