@@ -4,13 +4,30 @@
     flex-direction:column;
     align-items: center;
     background-size: cover;
-    background-color: rgb(12, 33, 19);
+    background-color: rgb(176, 236, 166);
 
 }
 
 h1 {
-    font-size: 95px;
-    color: #88ad8e;
+    font-size: 35px;
+    color: #0d2711;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+h2 {
+    text-align: center;
+    font-size: 18px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #113f19a1;
+    width: 1000px;
+    color: rgb(191, 252, 161);
+    border-radius: 5px;
+}
+
+.botao{
+    background-color: #195a24;
+    color: aliceblue;
+    opacity: 0;
 }
 
 

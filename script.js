@@ -2,6 +2,8 @@ let canvas = document.getElementById("snake");
 let contexto = canvas.getContext("2d");
 let caixa = 32;
 let snake = []; //vetor: atribui vários valores dentro, diferente das variáveis, que só armazenam um valor ou informação por vez
+let contador = 0;
+let vidas = 3;
 
 snake[0] = {
     x: 8 * caixa, 
@@ -11,6 +13,25 @@ snake[0] = {
 //Textura da cobrinha
 let textura = new Image();
 textura.src = 'imagens/círculo.png'; 
+
+let vidaCheia = new Image();
+vidaCheia.src = 'imagens/coração.png';
+
+let vidaVazia = new Image();
+vidaVazia.src = 'imagens/coração vazio.webp';
+
+let parabens = new Image();
+parabens.src = 'imagens/parabens_gif-url.gif';
+
+let faseCompleta = false;
+
+
+function desenharVidas() {
+    for (let i = 0; i < 3; i++) {
+        let img = i < vidas ? vidaCheia : vidaVazia;
+        contexto.drawImage(img, (i + 0.3) * caixa, 1.4 * caixa, 0.93* caixa, 0.93* caixa);
+    }
+}
 
 
 function criarCobrinha() {
@@ -119,19 +140,39 @@ function iniciarJogo(){
     if (snake[0].y > 15 * caixa && direcao == 'baixo') snake[0].y = 0;
     if (snake[0].y < 0 && direcao == 'cima') snake[0].y=15 * caixa;
    //Verificar a colisão da cabeça com o corpo
-   for (let i = 1; i< snake.length; i++){
+    
+
+    for (let i = 1; i < snake.length; i++) {
         if (snake[0].x == snake[i].x && snake[0].y == snake[i].y){
-            clearInterval(jogo); 
-            alert('Fim de jogo!');
+            vidas--;
+            contador = 0;
+
+            if (vidas > 0){
+                clearInterval(jogo);
+                setTimeout(() => {
+                    reiniciarJogo();
+                }, 500);
+            }else {
+                clearInterval(jogo);
+                alert('Fim de jogo!');
+            }
+
+            return;
         }
-    }    
+    }
     
     criarFundo();
     criarCobrinha(); 
     desenharComida();
     
+    contexto.fillStyle = "white";
+    contexto.font = "20px Arial";
+    contexto.fillText("Pontuação: " + contador, 10, 30);
+    desenharVidas();
+
     let cobraX = snake[0].x;
     let cobraY = snake[0].y;
+
 
     if (direcao == 'direita') cobraX += caixa;
     if (direcao == 'esquerda') cobraX -= caixa;
@@ -141,6 +182,7 @@ function iniciarJogo(){
     //verificar se comeu a comida
 
     if(cobraX == comida.x && cobraY == comida.y){
+        contador++;
         comida.x = Math.floor(Math.random() * 16) *caixa;
         comida.y = Math.floor(Math.random() * 16) *caixa;
      }else{
@@ -153,6 +195,20 @@ function iniciarJogo(){
     } 
 
     snake.unshift(novaCabeca);//add nova parte do corpo
+
+    if (contador >= 15 && !faseCompleta) {
+        faseCompleta = true;
+        clearInterval(jogo);
+
+        parabens.onload = () => {
+            contexto.drawImage(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+        };
+        if (parabens.complete) {
+            contexto.drawImage(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+        }
+
+        return;
+    }
 }
 let jogo = setInterval(iniciarJogo, 100);
 
