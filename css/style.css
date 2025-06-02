@@ -4,24 +4,27 @@
     flex-direction:column;
     align-items: center;
     background-size: cover;
-    background-color: rgb(176, 236, 166);
+    background-color: rgba(205, 237, 194, 0.728);
 
 }
 
 h1 {
-    font-size: 35px;
+    font-size: 90px;
     color: #0d2711;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 60px;
+    margin-block-end: 0%;
 }
 
 h2 {
     text-align: center;
-    font-size: 18px;
+    font-size: 30px;
     font-family: 'Courier New', Courier, monospace;
     background-color: #113f19a1;
     width: 1000px;
     color: rgb(191, 252, 161);
     border-radius: 5px;
+    margin-block-end: 60px;
 }
 
 .botao{
@@ -29,7 +32,6 @@ h2 {
     color: aliceblue;
     opacity: 0;
 }
-
 
 
 
