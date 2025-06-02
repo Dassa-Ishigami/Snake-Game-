@@ -20,11 +20,11 @@ vidaCheia.src = 'imagens/coração.png';
 let vidaVazia = new Image();
 vidaVazia.src = 'imagens/coração vazio.webp';
 
-let parabens = new Image();
-parabens.src = 'imagens/parabens_gif-url.gif';
 
 let faseCompleta = false;
 
+let parabens = new Image();
+parabens.src = 'imagens/parabens_gif-url.gif';
 
 function desenharVidas() {
     for (let i = 0; i < 3; i++) {
@@ -51,11 +51,11 @@ function criarCobrinha() {
         leftEyeX = cabeca.x + 8 - 4;   
         rightEyeX = cabeca.x + 8 + 16 + 4;
         olhoY = cabeca.y + 12;
-
+        
     } else if (direcao === 'esquerda' || direcao === 'direita') {
         leftEyeX = cabeca.x + 8;
         rightEyeX = cabeca.x + 8;
-
+        
     }
     if (direcao === 'esquerda') {
         olhoY = cabeca.y + 12 - 4;
@@ -66,19 +66,19 @@ function criarCobrinha() {
     
     // Função para desenhar o olho com íris
     function desenharOlhoComIris(x, y) {
-    // Desenha o círculo do olho
-    contexto.beginPath();
-    contexto.arc(x, y, eyeSize, 0, Math.PI *2);
-    contexto.fillStyle = 'white'; // cor da esclera
-    contexto.fill();
-
-    // Desenha a íris no centro do olho
-    contexto.beginPath();
-    contexto.arc(x, y, irisSize, 0, Math.PI *2);
-    contexto.fillStyle = 'black'; // cor da íris
-    contexto.fill();
+        // Desenha o círculo do olho
+        contexto.beginPath();
+        contexto.arc(x, y, eyeSize, 0, Math.PI *2);
+        contexto.fillStyle = 'white'; // cor da esclera
+        contexto.fill();
+        
+        // Desenha a íris no centro do olho
+        contexto.beginPath();
+        contexto.arc(x, y, irisSize, 0, Math.PI *2);
+        contexto.fillStyle = 'black'; // cor da íris
+        contexto.fill();
     }
-
+    
     // Desenhar os olhos com íris
     desenharOlhoComIris(leftEyeX, olhoY);
     desenharOlhoComIris(rightEyeX, olhoY);
@@ -105,7 +105,7 @@ function criarFundo( ){
 
 //contexto.fillRect() = desenha um retângulo preenchido no canvas
 //contexto.fillRect(coordenada x, coordenada y, largura da comida(caixa), altura da comida(caixa))
-  
+
 let maca = new Image();
 maca.src = "imagens/Apple.png"
 
@@ -139,7 +139,7 @@ function iniciarJogo(){
     if (snake[0].x < 0 && direcao == 'esquerda') snake[0].x=15 * caixa;
     if (snake[0].y > 15 * caixa && direcao == 'baixo') snake[0].y = 0;
     if (snake[0].y < 0 && direcao == 'cima') snake[0].y=15 * caixa;
-   //Verificar a colisão da cabeça com o corpo
+    //Verificar a colisão da cabeça com o corpo
     
 
     for (let i = 1; i < snake.length; i++) {
@@ -156,7 +156,7 @@ function iniciarJogo(){
                 clearInterval(jogo);
                 alert('Fim de jogo!');
             }
-
+            
             return;
         }
     }
@@ -169,42 +169,50 @@ function iniciarJogo(){
     contexto.font = "20px Arial";
     contexto.fillText("Pontuação: " + contador, 10, 30);
     desenharVidas();
-
+    
     let cobraX = snake[0].x;
     let cobraY = snake[0].y;
-
-
+    
+    
     if (direcao == 'direita') cobraX += caixa;
     if (direcao == 'esquerda') cobraX -= caixa;
     if (direcao == 'cima') cobraY -= caixa;
     if (direcao == 'baixo') cobraY += caixa;
-
+    
     //verificar se comeu a comida
-
+    
     if(cobraX == comida.x && cobraY == comida.y){
         contador++;
         comida.x = Math.floor(Math.random() * 16) *caixa;
         comida.y = Math.floor(Math.random() * 16) *caixa;
-     }else{
+    }else{
         snake.pop();
-     }
-
+    }
+    
     let novaCabeca = {
         x: cobraX,
         y: cobraY,
     } 
-
+    
     snake.unshift(novaCabeca);//add nova parte do corpo
-
+    
     if (contador >= 15 && !faseCompleta) {
         faseCompleta = true;
         clearInterval(jogo);
-
+        
+        
+        //parabens.onload = () => {
+            //contexto.drawImage(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+            //};
+            //if (parabens.complete) {
+                //contexto.drawImage(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+                //}
+                
         parabens.onload = () => {
-            contexto.drawImage(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+            document.body.appendChild(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
         };
         if (parabens.complete) {
-            contexto.drawImage(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
+            document.body.appendChild(parabens, canvas.width / 2 - 150, canvas.height / 2 - 150, 300, 300);
         }
 
         return;
